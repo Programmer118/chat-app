@@ -1,0 +1,39 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         String  @id @default(auto()) @map("_id") @db.ObjectId
+  name       String?
+  username   String  @unique
+  password   String
+  profilePic String  @default("")
+
+  sentMessages     Message[]      @relation("SentMessages") // Messages sent by this user
+  receivedMessages Message[]      @relation("ReceivedMessages") // Messages received by this user
+}
+
+model Message {
+  id             String       @id @default(auto()) @map("_id") @db.ObjectId
+  conversation   Conversation @relation("ConversationMessages", fields: [conversationId], references: [id]) // Reference to the conversation
+  conversationId String       @db.ObjectId
+  sender         User         @relation("SentMessages", fields: [senderID], references: [id]) // Reference to User who sends the message
+  senderID       String       @db.ObjectId
+  receiver       User         @relation("ReceivedMessages", fields: [receiverID], references: [id]) // Reference to User who receives the message
+  receiverID     String       @db.ObjectId
+  message        String?      @default("hi world!")
+  timestamp      DateTime     @default(now()) // Timestamp of when the message was created
+}
+
+model Conversation {
+  id           String    @id @default(auto()) @map("_id") @db.ObjectId
+  participants String[]  @db.ObjectId // Array of User ObjectIDs (many-to-many workaround)
+  messages     Message[] @relation("ConversationMessages") // List of messages in the conversation
+  createdAt    DateTime  @default(now()) // Timestamp of when the conversation was created
+  updatedAt    DateTime  @updatedAt     // Automatically update the timestamp when the document is modified
+}

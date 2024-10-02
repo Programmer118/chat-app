@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.703)),
+    url("/bg.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+
+
+
+/* Dark mode looking scrollbar */
+::-webkit-scrollbar {
+  width: 8px; /* Adjust the width of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: #333; /* Dark background for the scrollbar track */
+  border-radius: 5px; /* Round the scrollbar track */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #121212; /* Dark color for the thumb */
+  border-radius: 10px; /* Make the scrollbar thumb rounded */
+  border: 2px solid #555; /* Add a small border to the thumb to give contrast */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #242424; /* Slightly lighter shade on hover */
+}
+
+/* Optionally add a border on the container */
+.scroll-container {
+  overflow-y: scroll; /* Ensure scrolling works */
+  scrollbar-width: thin; /* Firefox scrollbar width */
+  scrollbar-color: #121212 #333; /* Firefox thumb and track color */
+}
+
+.scroll-container {
+  -ms-overflow-style: none;  /* Internet Explorer and Edge */
+  scrollbar-width: none;      /* Firefox */
+}
+
+.scroll-container::-webkit-scrollbar {
+  display: none; /* Hide scrollbar for Chrome, Safari, and WebKit-based browsers */
+}
