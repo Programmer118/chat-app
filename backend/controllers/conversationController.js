@@ -23,7 +23,6 @@ export const findOrCreateConversation = async (senderID, receiverID) => {
 
         return conversation;
     } catch (error) {
-        console.error("Error finding or creating conversation:", error);
         throw new Error("Could not find or create conversation");
     }
 };
@@ -48,7 +47,6 @@ export const addMessageToConversation = async (conversationId, messageId) => {
             },
         });
     } catch (error) {
-        console.error("Error adding message to conversation:", error);
         throw new Error("Could not add message to conversation");
     }  
 };

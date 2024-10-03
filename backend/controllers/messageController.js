@@ -26,11 +26,9 @@ export const msgSent = async (req, res, next) => {
             },
         });
 
-        return res.status(201).json({
-            success: true,
-            message: "Message sent successfully",
-            data: newMessage,
-        });
+        return res.status(201).json(
+          newMessage,
+        );
     } catch (error) {
         console.error("Error sending message:", error);
         return res.status(500).json({ error: "An error occurred while sending the message" });
@@ -55,12 +53,11 @@ export const getMsg = async (req, res, next) => {
         });
 
         if (!conversation) {
-            return res.status(404).json({ error: "No conversation found between the users" });
+            return res.status(200).json({ info: "No conversation found between the users" });
         }
 
         return res.status(200).json(conversation.messages);
     } catch (error) {
-        console.error("Error fetching messages:", error);
         return res.status(500).json({ error: "An error occurred while fetching the messages" });
     }
 };

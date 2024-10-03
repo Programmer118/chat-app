@@ -25,12 +25,10 @@ export const getUsers = async(req,res)=>{
         }
 
         return res.status(200).json({
-            success: true,
             data: allUsers,
         });
 
     } catch (error) {
-        console.log(error)
         return res.status(500).json({ error: "An error occurred while fetching the user" });
     }
 }

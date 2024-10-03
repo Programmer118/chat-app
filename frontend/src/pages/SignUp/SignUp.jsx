@@ -1,6 +1,22 @@
-import React from 'react'
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import useSignUp from "../../hooks/useSignUp";
 
 const SignUp = () => {
+  const [input, setinput] = useState({
+    name: "",
+    username: "",
+    password: "",
+    confirmPassword: "",
+  });
+
+  const { Loading, signup } = useSignUp();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await signup(input);
+  };
+
   return (
     <div className="flex items-center justify-center min-h-screen p-4">
       <div className="w-full max-w-md p-6 rounded-lg shadow-md bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-30">
@@ -8,7 +24,10 @@ const SignUp = () => {
           Sign Up
           <span className="text-blue-500"> Chat App</span>
         </h1>
-        <form action="" method="post" className="mt-8 flex flex-col justify-center items-center gap-2">
+        <form
+          onSubmit={handleSubmit}
+          className="mt-8 flex flex-col justify-center items-center gap-2"
+        >
           <label className="input input-bordered flex items-center gap-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -28,6 +47,8 @@ const SignUp = () => {
               type="text"
               className="grow"
               placeholder="Name"
+              value={input.name}
+              onChange={(e) => setinput({ ...input, name: e.target.value })}
             />
           </label>
 
@@ -44,6 +65,8 @@ const SignUp = () => {
               type="text"
               className="grow"
               placeholder="Username"
+              value={input.username}
+              onChange={(e) => setinput({ ...input, username: e.target.value })}
             />
           </label>
 
@@ -64,6 +87,8 @@ const SignUp = () => {
               type="password"
               className="grow"
               placeholder="Password"
+              value={input.password}
+              onChange={(e) => setinput({ ...input, password: e.target.value })}
             />
           </label>
 
@@ -81,22 +106,41 @@ const SignUp = () => {
               />
             </svg>
             <input
-              type="password"
+              type="text"
               className="grow"
               placeholder="Confirm Password"
+              value={input.confirmPassword}
+              onChange={(e) =>
+                setinput({ ...input, confirmPassword: e.target.value })
+              }
             />
           </label>
 
-          <button className="btn btn-outline btn-accent mt-2 w-full btn-sm text-xl">Sign Up</button>
-        <span className=" p-2">Have accout <a href="" className="text-sky-500 font-semibold underline hover:text-sky-400">Login</a></span>
+          <button disabled={Loading} className="btn btn-outline btn-accent w-full btn-sm mt-2 text-xl">
+          {!Loading ? 
+              'Sign Up'
+            : (
+              <span className="loading loading-spinner"></span>
+            )}
+            </button>
+
+
+          <span className=" p-2">
+            Have accout{" "}
+            <Link
+              to={"/login"}
+              className="text-sky-500 font-semibold underline hover:text-sky-400"
+            >
+              Login
+            </Link>
+          </span>
         </form>
-       </div>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default SignUp
-
+export default SignUp;
 
 // STARTER CODE FOR THIS FILE:
 

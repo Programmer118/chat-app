@@ -22,7 +22,7 @@ export async function signup(req, res, next) {
     const userExists = await prisma.user.findUnique({where:{username}})
 
     if(userExists){
-      return res.status(400).json({error:"User already exists"})
+      return res.status(400).json({error:"Username already exist"})
     }
 
     const salt = await bcrypt.genSalt(10);
@@ -34,7 +34,7 @@ export async function signup(req, res, next) {
 
     cookieToken(user,res);
   } catch (error) {
-    next(error);
+    throw new Error(error);
   }
 }
 
@@ -61,7 +61,7 @@ export async function login(req, res, next) {
 
     cookieToken(user,res);
   } catch (error) {
-    next(error);
+    throw new Error(error);
   }
 }
 

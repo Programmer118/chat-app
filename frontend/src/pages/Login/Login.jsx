@@ -1,6 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import useLogin from "../../hooks/useLogin";
 
 const Login = () => {
+  const [input, setinput] = useState({
+    username: "",
+    password: "",
+  });
+
+  const { Loading, login } = useLogin();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await login(input);
+  };
+
   return (
     <div className="flex items-center justify-center min-h-screen p-4">
       <div className="w-full max-w-md p-6 rounded-lg shadow-md bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-30">
@@ -8,7 +22,10 @@ const Login = () => {
           Login
           <span className="text-blue-500"> Chat App</span>
         </h1>
-        <form action="" method="post" className="mt-8 flex flex-col justify-center items-center gap-2">
+        <form
+          onSubmit={handleSubmit}
+          className="mt-8 flex flex-col justify-center items-center gap-2"
+        >
           <label className="input input-bordered flex items-center gap-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -22,6 +39,8 @@ const Login = () => {
               type="text"
               className="grow"
               placeholder="Username"
+              value={input.username}
+              onChange={(e) => setinput({ ...input, username: e.target.value })}
             />
           </label>
 
@@ -42,10 +61,28 @@ const Login = () => {
               type="password"
               className="grow"
               placeholder="Password"
+              value={input.password}
+              onChange={(e) => setinput({ ...input, password: e.target.value })}
             />
           </label>
-          <button className="btn btn-outline btn-accent w-full btn-sm mt-2 text-xl">Login</button>
-        <span className=" p-2">Don't have accout? <a href="" className="text-sky-500 font-semibold underline hover:text-sky-400"> Sign Up</a></span>
+
+          <button disabled={Loading} className="btn btn-outline btn-accent w-full btn-sm mt-2 text-xl">
+          {!Loading ? 
+              'Login'
+            : (
+              <span className="loading loading-spinner"></span>
+            )}
+            </button>
+          <span className=" p-2">
+            Don't have accout?{" "}
+            <Link
+              to={"/signup"}
+              className="text-sky-500 font-semibold underline hover:text-sky-400"
+            >
+              {" "}
+              Sign Up
+            </Link>
+          </span>
         </form>
       </div>
     </div>
@@ -53,7 +90,6 @@ const Login = () => {
 };
 
 export default Login;
-
 
 // STARTER CODE FOR THIS FILE:
 
