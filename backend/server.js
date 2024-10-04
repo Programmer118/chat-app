@@ -7,10 +7,11 @@ import authRoutes from './routes/authRoutes.js'
 import messageRoutes from './routes/messageRoutes.js'
 import userRoutes from './routes/userRoutes.js'
 
+import {app, server} from "./socket/socket.js";
+
 
 const PORT = process.env.PORT || 5000
 
-const app = express();
 dotenv.config();
 
 app.use(express.json())
@@ -27,6 +28,6 @@ app.get('/',(req,res)=>{
 })
 
 
-app.listen(PORT,()=>{
+server.listen(PORT,()=>{
     console.log(`Server running at port ${PORT}`)
 })

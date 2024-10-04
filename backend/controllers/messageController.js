@@ -1,5 +1,6 @@
 import prisma from "../../prisma/index.js";
 import { findOrCreateConversation } from "./conversationController.js";
+import {getReceiverId, io} from '../socket/socket.js'
 
 // Controller to handle sending a message
 export const msgSent = async (req, res, next) => {
@@ -26,6 +27,11 @@ export const msgSent = async (req, res, next) => {
             },
         });
 
+            const receiverSocketId = getReceiverId(receiverID)
+            if(receiverSocketId){
+                io.to(receiverSocketId).emit('newMessage',newMessage)
+            }
+
         return res.status(201).json(
           newMessage,
         );
@@ -51,6 +57,8 @@ export const getMsg = async (req, res, next) => {
                 messages: true, // Include the messages in the conversation
             }
         });
+
+
 
         if (!conversation) {
             return res.status(200).json({ info: "No conversation found between the users" });

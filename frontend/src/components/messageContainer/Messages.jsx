@@ -2,9 +2,11 @@ import React, { useEffect, useRef } from "react";
 import Message from './Message'
 import useGetMessages from "../../hooks/useGetMessages";
 import MessageSkeleton from "../skeletons/MessageSkeleton";
+import useListenSocketMessage from "../../hooks/useListenSocketMessage";
 
 const Messages = () => {
   const {Loading,messages} = useGetMessages();
+  useListenSocketMessage()
   const lastMessageRef = useRef();
 
   useEffect(() => {
@@ -14,8 +16,8 @@ const Messages = () => {
    <div className="scroll-container px-4 flex-1 overflow-auto">
 
     {!Loading && messages.length >0 && messages.map((message,idx)=>(
-      <div ref={lastMessageRef}>
-        <Message key={message.id} message={message}/>
+      <div key={message.id} ref={lastMessageRef}>
+        <Message message={message}/>
       </div>
     ))}
 
