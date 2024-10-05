@@ -16,7 +16,7 @@ export async function signup(req, res, next) {
     }
 
     if(!profilePic){
-      var newprofilePic = `https://avatar.iran.liara.run/username?username=${username}&bold=false&length=1`
+      var newprofilePic = `https://avatar.iran.liara.run/username?username=${name}&bold=false&length=1`
     }
 
     const userExists = await prisma.user.findUnique({where:{username}})

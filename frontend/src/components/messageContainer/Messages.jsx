@@ -1,17 +1,20 @@
 import React, { useEffect, useRef } from "react";
-import Message from './Message'
+import Message from './Message';
 import useGetMessages from "../../hooks/useGetMessages";
 import MessageSkeleton from "../skeletons/MessageSkeleton";
 import useListenSocketMessage from "../../hooks/useListenSocketMessage";
 
 const Messages = () => {
   const {Loading,messages} = useGetMessages();
-  useListenSocketMessage()
+  useListenSocketMessage();
   const lastMessageRef = useRef();
+  
 
   useEffect(() => {
-    lastMessageRef.current?.scrollIntoView({behavior:"auto"})
-  }, [messages])
+    lastMessageRef.current?.scrollIntoView({behavior:"auto"});
+  }, [messages]);
+
+
   return (
    <div className="scroll-container px-4 flex-1 overflow-auto">
 

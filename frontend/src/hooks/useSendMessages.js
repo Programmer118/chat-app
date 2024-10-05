@@ -22,8 +22,11 @@ const useSendMessages = () => {
                     message
                 })
             })
-
+            
             const data = await res.json();
+            if(!data){
+                toast.error("Server is down")
+            }
             if(data.error){
                 throw new Error(data.error)
             }

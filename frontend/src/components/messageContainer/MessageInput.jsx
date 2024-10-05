@@ -6,14 +6,20 @@ const MessageInput = () => {
   const [message, setMessage] = useState({
     message: "",
   });
+  const [sendingMsg,setSendingMsg ] = useState(false);
 
   const { Loading, sendMessage } = useSendMessages();
 
   const handleSendMessage = async (e) => {
+    setSendingMsg(true)
     e.preventDefault();
-    if(!(message.message))return
+    if(!(message.message)){
+      setSendingMsg(false)
+      return
+    }
     await sendMessage(message);
     setMessage({ ...message, message: "" });
+    setSendingMsg(false)
   };
 
   return (
@@ -28,6 +34,7 @@ const MessageInput = () => {
         />
         <button
           type="submit"
+          disabled={sendingMsg}
           className="absolute inset-y-0 end-0 flex items-center pe-3"
         >
           {!Loading ? (

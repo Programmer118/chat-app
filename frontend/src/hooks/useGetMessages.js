@@ -26,15 +26,10 @@ const useGetMessages = () => {
           throw new Error(data.error);
         }
 
-        if (data.info) {
-          // Handle informational response if needed
-          return;
-        }
-
         // Update the message state after fetching
-        setMessages([...data]); // Assuming data is the list of new messages
+        setMessages([...data]); 
       } catch (error) {
-        toast.error(error.message);
+       
       } finally {
         setLoading(false);
       }

@@ -26,7 +26,7 @@ model Message {
   senderID       String       @db.ObjectId
   receiver       User         @relation("ReceivedMessages", fields: [receiverID], references: [id]) // Reference to User who receives the message
   receiverID     String       @db.ObjectId
-  message        String?      @default("hi world!")
+  message        String?      @default("")
   timestamp      DateTime     @default(now()) // Timestamp of when the message was created
 }
 

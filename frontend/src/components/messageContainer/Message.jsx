@@ -8,7 +8,9 @@ const Message = ({message}) => {
   const {selectedConversation,setSelectedConversation} = useConversation();
 
   const fromMe = authUser.user.id === message.senderID;
-  const profilePic = authUser.user.id === message.senderID ? authUser.user.profilePic: selectedConversation.profilePic
+  const profilePic = fromMe ? authUser.user.profilePic: selectedConversation.profilePic
+  const shake = message.shouldShake ? "shake" : ''
+
   return (
     <div className={`chat ${fromMe ? "chat-end" :"chat-start"}`}>
       <div className="chat-image avatar">
@@ -19,7 +21,7 @@ const Message = ({message}) => {
           />
         </div>
       </div>
-      <div className={`chat-bubble text-white ${fromMe ? "bg-blue-500" :"bg-gray-700"}`}>
+      <div className={`chat-bubble text-white ${fromMe ? "bg-blue-500" :"bg-gray-700"} ${shake}`}>
        {message.message}
       </div>
       <div className="chat-footer opacity-50 text-xs flex gap-1 items-center">
