@@ -36,7 +36,7 @@ Follow these steps to run the project locally:
 
 ### 1. Clone the repository
 
-<git clone <https://github.com/Programmer118/chat-app.git>
+git clone <https://github.com/Programmer118/chat-app.git>
 cd chat-app
 
 ### 2. Install dependencies
