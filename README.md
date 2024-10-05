@@ -157,29 +157,11 @@ npm run build
 This will create an optimized build of the React app in the build folder.
 
 Usage
-Sign Up: Create a new account with a username and password.
-Login: Access your account using the registered credentials.
-Conversations: Create new conversations, select from the list of available users, and start chatting.
-Messages: Send and receive messages instantly with real-time updates.
-Media: Upload images and files to share with others in the chat.
-
-File Structure
-chat-app/
-│
-├── client/               # Frontend code (React)
-│   ├── public/           # Static assets
-│   ├── src/              # React components and pages
-│   └── package.json      # Frontend dependencies
-│
-├── server/               # Backend code (Node.js, Express)
-│   ├── config/           # Configuration files (e.g., MongoDB connection)
-│   ├── controllers/      # Request handlers and business logic
-│   ├── models/           # Mongoose models (User, Conversation)
-│   ├── routes/           # API routes
-│   └── package.json      # Backend dependencies
-│
-└── README.md             # Project documentation
-
+- **Sign Up: Create a new account with a username and password.
+- **Login: Access your account using the registered credentials.
+- **Conversations: Create new conversations, select from the list of available users, and start chatting.
+- **Messages: Send and receive messages instantly with real-time updates.
+- **Media: Upload images and files to share with others in the chat.
 
 Contributing
 Contributions are welcome! If you'd like to contribute, please open an issue or submit a pull request.
