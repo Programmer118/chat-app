@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
 import useConversation from "../store/useConversation";
 
 const useGetMessages = () => {

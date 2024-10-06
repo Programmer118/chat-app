@@ -8,13 +8,11 @@ const Messages = () => {
   const {Loading,messages} = useGetMessages();
   useListenSocketMessage();
   const lastMessageRef = useRef();
-  
 
   useEffect(() => {
     lastMessageRef.current?.scrollIntoView({behavior:"auto"});
   }, [messages]);
-
-
+  
   return (
    <div className="scroll-container px-4 flex-1 overflow-auto">
 

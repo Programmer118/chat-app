@@ -41,34 +41,34 @@ cd chat-app
 
 ### 2. Install dependencies
 
-Frontend
+- Frontend
 cd client
 npm install
 
-Backend
+- Backend
 cd ../server
 npm install
 
 ### 3. Setup environment variables
 
-Create a .env file in the server folder and add the following variables:
-PORT=5000
-MONGO_URI=your-mongodb-uri
-JWT_SECRET=your-jwt-secret
+Create a .env file in the server folder and add the following variables
+
+- PORT=5000
+- MONGO_URI=your-mongodb-uri
+- JWT_SECRET=your-jwt-secret
 
 Replace your-mongodb-uri and your-jwt-secret with your actual MongoDB connection URI and JWT secret key.
 
 ### 4. Run the application
 
 Frontend
-cd client
-npm start
+<cd frontend
+npm run dev
 
 This will run the React frontend at <http://localhost:3000>.
 
 Backend
-cd ../server
-npm run dev
+npm run server
 
 Here is the code for the README.md file:
 
@@ -78,7 +78,7 @@ Copy code
 Backend
 bash
 Copy code
-cd ../server
+<cd ../server
 npm run dev
 The Node.js server will run on <http://localhost:5000>.
 

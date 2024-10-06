@@ -1,9 +1,9 @@
-import React from "react";
 import Conversation from "./Conversation";
 import useGetUsers from "../../hooks/useGetUsers";
 
 const Conversations = () => {
   const { Loading, Users } = useGetUsers();
+ 
 
   return (
     <div className="py-2 scroll-container  overflow-y-auto flex flex-col">
