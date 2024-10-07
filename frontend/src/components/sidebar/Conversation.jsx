@@ -4,17 +4,16 @@ import { useState, useEffect } from "react";
 import { useAuthContext } from "../../context/AuthContext";
 
 const Conversation = ({ user, lastIdx }) => {
-  const { selectedConversation, setSelectedConversation,messages} = useConversation();
-  const {authUser} = useAuthContext()
-  const fromMe = authUser.user.id === user.id;
+  const { selectedConversation, setSelectedConversation, messages } = useConversation();
+  const { authUser } = useAuthContext();
   const isSelected = selectedConversation?.id === user.id;
   const { onlineUsers } = useSocketContext();
   const isOnline = onlineUsers.includes(user.id);
-  const [isViwed,setIsViwed] = useState(false)
 
+  // const [isViewed, setIsViewed] = useState(true); // State to track if the conversation is viewed ** update in future
   const [lastMessage, setLastMessage] = useState({
-    message:'',
-    senderID:''
+    message: '',
+    senderID: ''
   });
 
   useEffect(() => {
@@ -25,19 +24,21 @@ const Conversation = ({ user, lastIdx }) => {
   
     if (lastmsg) {
       setLastMessage({
-        message:lastmsg.message,
-        senderID:lastmsg.senderID
+        message: lastmsg.message,
+        senderID: lastmsg.senderID
       }); // Assuming the message text is in `message` field
     }
-  
-    // Set isViewed to true if the conversation is selected
-    setIsViwed(isSelected);
-   
-  
-  }, [messages, user.id, isSelected]); // Run effect when `messages`, `user.id`, or `isSelected` changes
-  
-  const handleClick =()=>{
-    setSelectedConversation(user)
+
+    // If the conversation is selected, mark it as viewed
+    if (isSelected) {
+      // setIsViewed(true); // Mark as viewed when the user opens the conversation update in future
+    }
+
+  }, [messages, user.id, isSelected]);
+
+  const handleClick = () => {
+    setSelectedConversation(user); // Select the conversation when clicked
+    // setIsViewed(true); // Mark the conversation as viewed when clicked
   }
 
   return (
@@ -46,7 +47,7 @@ const Conversation = ({ user, lastIdx }) => {
         className={`flex gap-2 items-center ${
           isSelected ? "bg-sky-400" : ""
         } hover:bg-sky-400 py-1 p-2 my-3 cursor-pointer rounded-full`}
-        onClick={(handleClick)}
+        onClick={handleClick}
       >
         <div className={`${isOnline ? "online" : ""} avatar`}>
           <div className="w-10 rounded-full">
@@ -59,9 +60,18 @@ const Conversation = ({ user, lastIdx }) => {
         <div className="flex flex-col flex-1">
           <div className="flex gap-3 justify-between items-center">
             <p className="font-bold text-gray-200 ">{user.name}</p>
-            
-              <span className={`text-[18px] text-emerald-700 font-semibold`}> {lastMessage.senderID === authUser.user.id?"":<>{lastMessage.message}</>} </span>
+
             {/* Display last message */}
+            <span className="text-[15px] text-emerald-700 font-semibold">
+              {/* Red dot indicator for unread messages */}
+              {/* {!isViewed && <span className="text-red-500">●</span>} update in future */}
+
+              {lastMessage.senderID === authUser.user.id ? (
+                <span className="text-gray-700">You: {lastMessage.message}</span> // Show 'You:' for messages from the logged-in user
+              ) : (
+                <>{lastMessage.message}</>
+              )}
+            </span>
           </div>
         </div>
       </div>
