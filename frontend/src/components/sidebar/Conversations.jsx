@@ -1,7 +1,7 @@
 import Conversation from "./Conversation";
 import useGetUsers from "../../hooks/useGetUsers";
 
-const Conversations = () => {
+const Conversations = ({setIsSidebarOpen}) => {
   const { Loading, Users } = useGetUsers();
  
 
@@ -12,6 +12,7 @@ const Conversations = () => {
           key={user.id}
           user={user}
           lastIdx={Idx === Users.length - 1}
+          setIsSidebarOpen={setIsSidebarOpen}
         />
       ))}
 

@@ -3,7 +3,7 @@ import { useSocketContext } from "../../context/SocketContext";
 import { useState, useEffect } from "react";
 import { useAuthContext } from "../../context/AuthContext";
 
-const Conversation = ({ user, lastIdx }) => {
+const Conversation = ({ user, lastIdx, setIsSidebarOpen }) => {
   const { selectedConversation, setSelectedConversation, messages } = useConversation();
   const { authUser } = useAuthContext();
   const isSelected = selectedConversation?.id === user.id;
@@ -39,6 +39,7 @@ const Conversation = ({ user, lastIdx }) => {
   const handleClick = () => {
     setSelectedConversation(user); // Select the conversation when clicked
     // setIsViewed(true); // Mark the conversation as viewed when clicked
+    setIsSidebarOpen(false);
   }
 
   return (

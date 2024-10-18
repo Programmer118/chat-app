@@ -3,12 +3,12 @@ import SearchBar from './SearchBar'
 import Conversations from './Conversations'
 import LogoutButton from './LogoutButton'
 
-const Sidebar = () => {
+const Sidebar = ({setIsSidebarOpen}) => {
   return (
     <div className='h-full  border-r border-slate-500 p-4 flex flex-col'>
-      <SearchBar/>
+      <SearchBar setIsSidebarOpen={setIsSidebarOpen}/>
       <div className="divider px-3"></div>
-      <Conversations/>
+      <Conversations setIsSidebarOpen={setIsSidebarOpen}/>
 
       <LogoutButton/>
     </div>

@@ -3,7 +3,7 @@ import useConversation from "../../store/useConversation";
 import useGetUsers from "../../hooks/useGetUsers";
 import toast from "react-hot-toast";
 
-const SearchBar = () => {
+const SearchBar = ({setIsSidebarOpen}) => {
   const [Search, setSearch] = useState("");
   const [filteredUsers, setFilteredUsers] = useState([]);
   const { setSelectedConversation } = useConversation();
@@ -26,12 +26,13 @@ const SearchBar = () => {
   }, [Search, Users]);
 
   // Handle user selection from filtered list
-  const handleSubmit = (e, selectedUser) => {
+  const handleSubmit = (e, selectedUser, setIsSidebarOpen) => {
     e.preventDefault();
 
     if (selectedUser) {
       setSelectedConversation(selectedUser);
       setSearch("");
+      setIsSidebarOpen(false);
     } else {
       toast.error("No user found");
     }
@@ -41,32 +42,34 @@ const SearchBar = () => {
     <div className="relative">
       <form
         onSubmit={(e) => handleSubmit(e, null)} // Null for default form submission
-        className=" flex items-center gap-2 text-white"
+        className="flex items-center text-white"
       >
-        <input
-          value={Search}
-          onChange={(e) => setSearch(e.target.value)}
-          type="text"
-          className="input input-bordered rounded-full bg-transparent"
-          placeholder="Search...."
-        />
-        <button
-          type="submit"
-          className="btn btn-circle bg-sky-400 bg-transparent border-none text-gray-800 hover:bg-sky-300"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 16 16"
-            fill="currentColor"
-            className="h-5 w-5 opacity-70"
+        <div className="flex items-center w-full">
+          <input
+            value={Search}
+            onChange={(e) => setSearch(e.target.value)}
+            type="text"
+            className="w-full py-2 px-4 rounded-full bg-gray-700 text-white placeholder-gray-400 border-2 border-gray-600 focus:outline-none focus:border-sky-500 transition-colors duration-300 ease-in-out"
+            placeholder="Search..."
+          />
+          <button
+            className="absolute right-3 top-1/2 transform -translate-y-1/2 hover:cursor-pointer"
+            type="button"
           >
-            <path
-              fillRule="evenodd"
-              d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-              clipRule="evenodd"
-            />
-          </svg>
-        </button>
+            <svg
+              className="w-5 h-5 text-gray-400"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fillRule="evenodd"
+                d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </button>
+        </div>
       </form>
 
       {Search && filteredUsers.length > 0 && (
@@ -74,7 +77,7 @@ const SearchBar = () => {
           {filteredUsers.map((user, idx) => (
             <div
               key={idx}
-              onClick={(e) => handleSubmit(e, user)} // Correctly pass user as callback
+              onClick={(e) => handleSubmit(e, user, setIsSidebarOpen)} // Correctly pass user as callback
               className="user flex justify-start cursor-pointer items-center rounded-lg px-4 py-2 text-black hover:bg-sky-400 font-semibold"
             >
               <img
@@ -93,3 +96,19 @@ const SearchBar = () => {
 };
 
 export default SearchBar;
+
+//search button 
+ {/*
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 16 16"
+              fill="currentColor"
+              className="h-5 w-5 opacity-70"
+            >
+              <path
+                fillRule="evenodd"
+                d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </button> */}
