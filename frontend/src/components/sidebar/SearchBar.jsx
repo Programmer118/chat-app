@@ -18,8 +18,7 @@ const SearchBar = ({setIsSidebarOpen}) => {
 
     const filtered = Users.filter(
       (c) =>
-        c.name.toLowerCase().includes(Search.toLowerCase()) ||
-        c.username.toLowerCase().includes(Search.toLowerCase())
+        c.name.toLowerCase().includes(Search.toLowerCase())
     );
 
     setFilteredUsers(filtered);
@@ -28,12 +27,16 @@ const SearchBar = ({setIsSidebarOpen}) => {
   // Handle user selection from filtered list
   const handleSubmit = (e, selectedUser, setIsSidebarOpen) => {
     e.preventDefault();
-
+    
     if (selectedUser) {
       setSelectedConversation(selectedUser);
       setSearch("");
       setIsSidebarOpen(false);
-    } else {
+    } else if (Search.length > 0 && !selectedUser) {
+      setSelectedConversation(filteredUsers[0])
+      setSearch("");
+      setIsSidebarOpen(false);
+    }else{
       toast.error("No user found");
     }
   };
@@ -41,7 +44,7 @@ const SearchBar = ({setIsSidebarOpen}) => {
   return (
     <div className="relative">
       <form
-        onSubmit={(e) => handleSubmit(e, null)} // Null for default form submission
+        onSubmit={(e) => handleSubmit(e, null, setIsSidebarOpen)} // Null for default form submission
         className="flex items-center text-white"
       >
         <div className="flex items-center w-full">
@@ -54,7 +57,7 @@ const SearchBar = ({setIsSidebarOpen}) => {
           />
           <button
             className="absolute right-3 top-1/2 transform -translate-y-1/2 hover:cursor-pointer"
-            type="button"
+            type="submit"
           >
             <svg
               className="w-5 h-5 text-gray-400"
@@ -96,19 +99,3 @@ const SearchBar = ({setIsSidebarOpen}) => {
 };
 
 export default SearchBar;
-
-//search button 
- {/*
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 16 16"
-              fill="currentColor"
-              className="h-5 w-5 opacity-70"
-            >
-              <path
-                fillRule="evenodd"
-                d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </button> */}
