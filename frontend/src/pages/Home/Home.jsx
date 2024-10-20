@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Sidebar from '../../components/sidebar/Sidebar'
 import MessageContainer from '../../components/messageContainer/MessageContainer'
-import Header from '../../components/headerMobile/header'
+import Header from '../../components/headerMobile/Header'
 
 
 const Home = () => {
